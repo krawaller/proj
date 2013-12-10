@@ -3,33 +3,37 @@
 
 console.log("System: Loading view generator...");
 
-define(function (require) {
+define([
+    'backbone',
+    'view/template-generator',
+    'text!template/main-content-home.html',
+    'text!template/header-nav.html',
+    'text!template/footer.html',
+    'text!template/application.html',
+    'text!template/about.html'
+], function (Backbone, TemplateGenerator, homeTemplate, headerTemplate, footerTemplate, appTemplate, aboutTemplate) {
+    "use strict";
+    return Backbone.View.extend({
 
-    //Requirement dependency
-    var backBone = require('backbone');
-    var headerNavView = require('view/header-nav');
-    var homeContentView = require('view/main-content');
-    var applicationView = require('view/application');
-    var footerView = require('view/footer');
-    var templateGenerator = require('view/template-generator');
-
-
-    return backBone.View.extend({
+        //Html references
+        htmlId: {
+            HEADERNAV   : "#header-nav",
+            MAINCONTENT : "#main-content",
+            FOOTER      : "#footer"
+        },
 
         initialize: function () {
-            templateGenerator.initialize("#header-nav");
-            templateGenerator.initialize("#footer");
+            var header = new TemplateGenerator({el: this.htmlId.HEADERNAV, template: headerTemplate}),
+                footer = new TemplateGenerator({el: this.htmlId.FOOTER, template: footerTemplate});
         },
         renderHomePage: function () {
-            templateGenerator.initialize("#main-content, home");
+            var home = new TemplateGenerator({el: this.htmlId.MAINCONTENT, template: homeTemplate});
         },
         renderApplicationPage: function () {
-            templateGenerator.initialize("#main-content, app");
+            var app = new TemplateGenerator({el: this.htmlId.MAINCONTENT, template: appTemplate});
         },
         renderAboutPage: function () {
-
+            var app = new TemplateGenerator({el: this.htmlId.MAINCONTENT, template: aboutTemplate});
         }
-
     });
-
 });

@@ -3,15 +3,14 @@
 
 console.log("System: Loading router...");
 
-define(function (require) {
-
+define([
     //Requirement dependency
-    var a_backBone = require('backbone');
-    var a_viewGenerator = require('view/view-generator');
-
-
+    'backbone',
+    'view/view-generator'
+], function (Backbone, ViewGenerator) {
+    "use strict";
     var initialize = function () {
-        var appRouter = a_backBone.Router.extend({
+        var AppRouter = Backbone.Router.extend({
             routes: {
                 //Defining url routes
                 '': 'showHome',
@@ -19,27 +18,30 @@ define(function (require) {
                 'About': 'showAbout',
                 '*actions': 'defaultAction'
             }
-        });
-
-        var app_router = new appRouter();
-
+        }),
+            app_router = new AppRouter();
 
         app_router.on('route:showHome', function () {
             console.log("Router: Home");
-            var viewGenerator = new a_viewGenerator();
+            var viewGenerator = new ViewGenerator();
             viewGenerator.renderHomePage();
         });
         app_router.on('route:showApp', function () {
             console.log("Router: App");
-            var viewGenerator = new a_viewGenerator();
+            var viewGenerator = new ViewGenerator();
             viewGenerator.renderApplicationPage();
+        });
+        app_router.on('route:showAbout', function () {
+            console.log("Router: App");
+            var viewGenerator = new ViewGenerator();
+            viewGenerator.renderAboutPage();
         });
         app_router.on('route:defaultAction', function (actions) {
             // We have no matching route, lets just log what the URL was
             console.log('No route:', actions);
         });
 
-        a_backBone.history.start();
+        Backbone.history.start();
     };
 
     return {

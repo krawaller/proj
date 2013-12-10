@@ -25,7 +25,7 @@ require.config({
 });
 
 //Running main moudle
-require(['app/main'], function (a_main) {
-    a_main.initialize();
+require(['app/main'], function (MainModule) {
+    MainModule.initialize();
 });
 
