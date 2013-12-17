@@ -6,17 +6,34 @@ define([
     //Requirement dependency
     'backbone',
     'underscore',
-    'jquery'
-], function (Backbone, _, $) {
+    'jquery',
+    'text!template/main-content-home.html',
+    'text!template/header-nav.html',
+    'text!template/footer.html',
+    'text!template/application.html',
+    'text!template/about.html'
+], function (Backbone, _, $, homeTemplate, headerTemplate, footerTemplate, appTemplate, aboutTemplate) {
     "use strict";
-    //Parameter = template
     return Backbone.View.extend({
-        initialize: function (param) {
-            this.render(param.template);
+
+        getHtmlId: {
+            HEADER           : "#header-nav",
+            MAINCONTENT      : "#main-content",
+            FOOTER           : "#footer"
         },
-        render: function (temp) {
+
+        getTemplate: {
+            MAINHOMETEMP   : homeTemplate,
+            HEADERTEMP     : headerTemplate,
+            APPTEMP        : appTemplate,
+            ABOUTTEMP      : aboutTemplate,
+            FOOTERTEMP     : footerTemplate
+        },
+        //Parameter = template, htmlElement
+        render: function (param) {
+            this.setElement(param.el);
             // Compile the template using underscore
-            var template = _.template(temp, {});
+            var template = _.template(param.template, {});
             // Load the compiled HTML into the Backbone "el"
             this.$el.html(template);
         }

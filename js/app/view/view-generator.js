@@ -6,34 +6,27 @@ console.log("System: Loading view generator...");
 define([
     'backbone',
     'view/template-generator',
-    'text!template/main-content-home.html',
-    'text!template/header-nav.html',
-    'text!template/footer.html',
-    'text!template/application.html',
-    'text!template/about.html'
-], function (Backbone, TemplateGenerator, homeTemplate, headerTemplate, footerTemplate, appTemplate, aboutTemplate) {
+    'view/todo-view'
+], function (Backbone, TemplateGenerator, TodoView) {
     "use strict";
     return Backbone.View.extend({
 
-        //Html references
-        htmlId: {
-            HEADERNAV   : "#header-nav",
-            MAINCONTENT : "#main-content",
-            FOOTER      : "#footer"
-        },
-
         initialize: function () {
-            var header = new TemplateGenerator({el: this.htmlId.HEADERNAV, template: headerTemplate}),
-                footer = new TemplateGenerator({el: this.htmlId.FOOTER, template: footerTemplate});
+
+            this.tg = new TemplateGenerator();
+            var header = this.tg.render({el: this.tg.getHtmlId.HEADER, template: this.tg.getTemplate.HEADERTEMP}),
+                footer = this.tg.render({el: this.tg.getHtmlId.FOOTER, template: this.tg.getTemplate.FOOTERTEMP}),
+                content;
         },
         renderHomePage: function () {
-            var home = new TemplateGenerator({el: this.htmlId.MAINCONTENT, template: homeTemplate});
+            this.content = this.tg.render({el: this.tg.getHtmlId.MAINCONTENT, template: this.tg.getTemplate.MAINHOMETEMP});
         },
         renderApplicationPage: function () {
-            var app = new TemplateGenerator({el: this.htmlId.MAINCONTENT, template: appTemplate});
+            this.content = this.tg.render({el: this.tg.getHtmlId.MAINCONTENT, template: this.tg.getTemplate.APPTEMP});
+            this.content = new TodoView();
         },
         renderAboutPage: function () {
-            var app = new TemplateGenerator({el: this.htmlId.MAINCONTENT, template: aboutTemplate});
+            this.content = this.tg.render({el: this.tg.getHtmlId.MAINCONTENT, template: this.tg.getTemplate.ABOUTTEMP});
         }
     });
 });

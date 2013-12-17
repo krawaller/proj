@@ -9,43 +9,33 @@ define([
     'view/view-generator'
 ], function (Backbone, ViewGenerator) {
     "use strict";
-    var initialize = function () {
-        var AppRouter = Backbone.Router.extend({
-            routes: {
-                //Defining url routes
-                '': 'showHome',
-                'Application': 'showApp',
-                'About': 'showAbout',
-                '*actions': 'defaultAction'
-            }
-        }),
-            app_router = new AppRouter();
+    return Backbone.Router.extend({
 
-        app_router.on('route:showHome', function () {
+        initialize: function () {
+            this.viewGenerator = new ViewGenerator();
+        },
+
+        routes: {
+            //Defining url routes
+            '': 'showHome',
+            'application': 'showApp',
+            'about': 'showAbout',
+            '*actions': 'showHome'
+        },
+
+        showApp: function () {
+            console.log("Router: App");
+            this.viewGenerator.renderApplicationPage();
+        },
+
+        showAbout: function () {
+            console.log("Router: About");
+            this.viewGenerator.renderAboutPage();
+        },
+
+        showHome: function () {
             console.log("Router: Home");
-            var viewGenerator = new ViewGenerator();
-            viewGenerator.renderHomePage();
-        });
-        app_router.on('route:showApp', function () {
-            console.log("Router: App");
-            var viewGenerator = new ViewGenerator();
-            viewGenerator.renderApplicationPage();
-        });
-        app_router.on('route:showAbout', function () {
-            console.log("Router: App");
-            var viewGenerator = new ViewGenerator();
-            viewGenerator.renderAboutPage();
-        });
-        app_router.on('route:defaultAction', function (actions) {
-            // We have no matching route, lets just log what the URL was
-            console.log('No route:', actions);
-        });
-
-        Backbone.history.start();
-    };
-
-    return {
-        initialize: initialize
-    };
-
+            this.viewGenerator.renderHomePage();
+        }
+    });
 });

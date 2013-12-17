@@ -7,6 +7,8 @@ console.log("System: RequireJS is being configurated...");
 require.config({
     urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
+        collection: "app/collection",
+        model: "app/model",
         view: "app/view",
         template: "../template",
         router: "app/router",
@@ -21,11 +23,11 @@ require.config({
             deps: ['underscore', 'jquery']
         }
     }
-
 });
 
 //Running main moudle
-require(['app/main'], function (MainModule) {
-    MainModule.initialize();
+require(['app/main'], function (Main) {
+    "use strict";
+    Main.run();
 });
 
