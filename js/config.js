@@ -16,11 +16,15 @@ require.config({
         underscore: "lib/underscore",               //AMD-version
         backbone: "lib/backbone",                   //AMD-version
         localstorage: "lib/backbone-localstorage",
-        text: "lib/require-text"                    //AMD-version
+        text: "lib/require-text",                    //AMD-version
+        datepicker: "lib/bootstrap-datepicker"
     },
     shim: {
         'backbone' : {
             deps: ['underscore', 'jquery']
+        },
+        'datepicker' : {
+            deps: ['jquery']
         }
     }
 });

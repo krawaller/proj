@@ -13,7 +13,7 @@ define([
     return Backbone.Collection.extend({
 
         model: TodoModel,
-        localStorage: new LocalStore("todos")
+        localStorage: new LocalStore("Todos")
 
     });
 });

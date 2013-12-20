@@ -11,8 +11,9 @@ define([
     'text!template/header-nav.html',
     'text!template/footer.html',
     'text!template/application.html',
-    'text!template/about.html'
-], function (Backbone, _, $, homeTemplate, headerTemplate, footerTemplate, appTemplate, aboutTemplate) {
+    'text!template/about.html',
+    'text!template/todo-item.html'
+], function (Backbone, _, $, homeTemplate, headerTemplate, footerTemplate, appTemplate, aboutTemplate, itemTemplate) {
     "use strict";
     return Backbone.View.extend({
 
@@ -27,7 +28,8 @@ define([
             HEADERTEMP     : headerTemplate,
             APPTEMP        : appTemplate,
             ABOUTTEMP      : aboutTemplate,
-            FOOTERTEMP     : footerTemplate
+            FOOTERTEMP     : footerTemplate,
+            ITEMTEMP       : itemTemplate
         },
         //Parameter = template, htmlElement
         render: function (param) {
@@ -36,6 +38,26 @@ define([
             var template = _.template(param.template, {});
             // Load the compiled HTML into the Backbone "el"
             this.$el.html(template);
+        },
+
+        prependTodoItem: function (param) {
+            var template = _.template(itemTemplate, {});
+
+
+            $("#todo-list").prepend(template);
+            $("#todo-list").find("#data").html(param.data);
+            $("#todo-list").find("#date").html("Expires: " + param.expire);
+            //console.log(new Date().getDate());
+            //console.log(new Date().getMonth());
+            //console.log(new Date().getUTCFullYear());
+
+            //console.log(myDate.getDay() + "/" + myDate.getMonth() + "/" + myDate.getYear());
+
+            //if (param.expire) {
+            //    $(this).css('color', 'red');
+            //)}
+
+            $("#delete-button").attr("id", param.id);
         }
     });
 });

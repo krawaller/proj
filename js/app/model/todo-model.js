@@ -11,7 +11,13 @@ define([
     return Backbone.Model.extend({
 
         defaults: {
-            content: "empty"
+            content: "empty",
+            expire: "empty",
+            complete: false
+        },
+
+        clear: function () {
+            this.destroy();
         }
 
     });
