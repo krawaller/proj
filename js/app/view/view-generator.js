@@ -9,7 +9,7 @@ define([
     'view/app-view'
 ], function (Backbone, TemplateGenerator, AppView) {
     "use strict";
-    return Backbone.View.extend({
+    return {
 
         initialize: function () {
 
@@ -27,5 +27,5 @@ define([
         renderAboutPage: function () {
             this.content = this.tg.render({el: this.tg.getHtmlId.MAINCONTENT, template: this.tg.getTemplate.ABOUTTEMP});
         }
-    });
+    };
 });
