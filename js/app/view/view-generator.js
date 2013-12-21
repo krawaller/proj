@@ -10,10 +10,8 @@ define([
 ], function (Backbone, TemplateGenerator, AppView) {
     "use strict";
     return {
-
+        tg: new TemplateGenerator(),
         initialize: function () {
-
-            this.tg = new TemplateGenerator();
             var header = this.tg.render({el: this.tg.getHtmlId.HEADER, template: this.tg.getTemplate.HEADERTEMP}),
                 footer = this.tg.render({el: this.tg.getHtmlId.FOOTER, template: this.tg.getTemplate.FOOTERTEMP});
         },
