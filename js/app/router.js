@@ -7,12 +7,13 @@ define([
     //Requirement dependency
     'backbone',
     'view/view-generator'
-], function (Backbone, ViewGenerator) {
+], function (Backbone, viewGenerator) {
     "use strict";
     return Backbone.Router.extend({
 
         initialize: function () {
-            this.viewGenerator = new ViewGenerator();
+            this.viewGenerator = viewGenerator;
+            this.viewGenerator.initialize();
         },
 
         routes: {
